@@ -1,0 +1,21 @@
+﻿@using HomeWork.ViewModel
+@model ClassroomViewModel
+
+<h1>Update Classroom</h1>
+<form asp-action="Update">
+    <div class="form-group">
+        <input type="hidden" asp-for="selectedClassroom.Id">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" placeholder="Enter class name"
+        asp-for="selectedClassroom.Name" />
+        <span asp-validation-for="selectedClassroom.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="room">Room</label>
+        <input type="text" class="form-control" placeholder="Enter room"
+        asp-for="selectedClassroom.Room" />
+        <span asp-validation-for="selectedClassroom.Room" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary m-2">Update</button>
+    <a asp-action="Index" class="btn btn-danger">Cancel</a>
+</form>

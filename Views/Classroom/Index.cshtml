@@ -1,0 +1,134 @@
+﻿@using HomeWork.ViewModel
+@model ClassroomViewModel
+
+<h1>Hello</h1>
+<form>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input value="@Model.keyWord" type="text" class="form-control" id="name" name="keyWord" placeholder="Enter class name">
+    </div>
+    <button type="submit" class="btn btn-primary m-2">Search</button>
+    <a asp-action="Insert" class="btn btn-success">Insert</a>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">Insert Ajax</button>
+</form>
+<table id="classroomTable" class="table table-bordered table-hover">
+    <thead>
+        <tr class="table-hover">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Room</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.listClassroom != null)
+        {
+            var index = 0;
+            foreach (var classroom in Model.listClassroom)
+            {
+                <tr>
+                    <td>@(++index)</td>
+                    <td>@classroom.Name</td>
+                    <td>@classroom.Room</td>
+                    <td>
+                        <button onclick="DetailClassroom(@classroom.Id)" class="btn btn-primary">Detail</button>
+                        <a asp-controller="Student" asp-action="Index" asp-route-id="@classroom.Id" class="btn btn-warning" name="id">List Students</a>
+                        <a asp-action="Update" asp-route-id="@classroom.Id" class="btn btn-primary">Update</a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_@classroom.Id">Delete</button>
+
+                        <div class="modal fade" id="delete_@classroom.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Caution!</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to delete @classroom.Name?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <a asp-action="Delete" asp-route-id="@classroom.Id" class="btn btn-primary">Yes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No data</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="detailClass">
+</div>
+
+<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new classroom</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-1">
+                    <label class="col-2 form-label">Name</label>
+                    <input id="nameClass" class="col-10 form-control" type="text" asp-for="selectedClassroom.Name"/>
+                </div>
+                <div class="row mb-1">
+                    <label class="col-2 form-label">Room</label>
+                    <input id="room" class="col-10 form-control" type="text" asp-for="selectedClassroom.Room"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Index" class="btn btn-secondary">Back</a>
+                <button type="button" class="btn btn-info" id="addClassroomBtn">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#addClassroomBtn').click(function () {
+                event.preventDefault();
+
+                var name = $('#nameClass').val();
+                var room = $('#room').val();
+
+                $.ajax({
+                    url: '/Classroom/Insert2',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        selectedClassroom: {
+                            Name: name,
+                            Room: room
+                        }
+                    }),
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<script>
+    function DetailClassroom(id) {
+        console.log(id);
+        $("#detailClass").load("/Classroom/Detail/" + id, function (data) {
+            alert("success");
+        });
+    }
+</script>

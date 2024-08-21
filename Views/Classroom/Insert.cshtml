@@ -1,0 +1,18 @@
+﻿@using HomeWork.ViewModel
+@model ClassroomViewModel
+
+<h1>Create Classroom</h1>
+<form asp-action="Insert" method="post">
+    <div class="row mb-1">
+        <label class="col-2 form-label">Name</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedClassroom.Name" />
+    </div>
+    <div class="row mb-1">
+        <label class="col-2 form-label">Room</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedClassroom.Room" />
+    </div>
+    <div class="m-2">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button asp-action="Insert" type="submit" class="btn btn-info">Add</button>
+    </div>
+</form>

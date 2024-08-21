@@ -1,0 +1,35 @@
+﻿@using HomeWork.ViewModel
+@model ClassroomViewModel
+
+<h2>Danh sach sinh vien @Model.classroomCurrent.Name</h2>
+<table class="table table-bordered table-hover">
+    <tr class="table-hover">
+        <th>Id</th>
+        <th>StudentId</th>
+        <th>Name</th>
+        <th>Birthdate</th>
+        <th>Gender</th>
+        <th>ClassroomId</th>
+    </tr>
+    @if (Model.listStudent != null)
+    {
+        var index = 0;
+        foreach (var student in Model.listStudent)
+        {
+            <tr>
+                <td>@(++index)</td>
+                <td>@student.StudentId</td>
+                <td>@student.Name</td>
+                <td>@student.BirthDate</td>
+                <td>@student.Gender</td>
+                <td>@student.ClassroomId</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4">No data</td>
+        </tr>
+    }
+</table>

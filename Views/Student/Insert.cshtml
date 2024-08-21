@@ -1,0 +1,31 @@
+﻿@using HomeWork.ViewModel
+@model StudentViewModel
+
+<h1>Create Student</h1>
+<form asp-action="Insert" method="post">
+    <div class="row mb-1">
+        <input type="hidden" asp-for="selectedStudent.Id"/>
+        <label class="col-2 form-label">StudentId</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedStudent.StudentId" />
+    </div>
+    <div class="row mb-1">
+        <label class="col-2 form-label">Name</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedStudent.Name" />
+    </div>
+    <div class="row mb-1">
+        <label class="col-2 form-label">BirthDate</label>
+        <input class="col-10 form-control" type="date" asp-for="selectedStudent.BirthDate" />
+    </div>
+    <div class="row mb-1">
+        <label class="col-2 form-label">Gender</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedStudent.Gender" />
+    </div>
+    <div class="row mb-1">
+        <label class="col-2 form-label">ClassroomId</label>
+        <input class="col-10 form-control" type="text" asp-for="selectedStudent.ClassroomId" />
+    </div>
+    <div class="m-2">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button asp-action="Insert" type="submit" class="btn btn-info">Add</button>
+    </div>
+</form>

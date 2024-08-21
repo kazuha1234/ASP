@@ -1,0 +1,34 @@
+﻿@using HomeWork.ViewModel
+@model StudentViewModel
+
+<h1>Update Classroom</h1>
+<form asp-action="Update">
+    <div class="form-group">
+        <input type="hidden" asp-for="selectedStudent.Id">
+        <label for="name">StudentId</label>
+        <input type="text" class="form-control" placeholder="Enter StudentId"
+               asp-for="selectedStudent.StudentId" />
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" placeholder="Enter Student's Name"
+               asp-for="selectedStudent.Name" />
+    </div>
+    <div class="form-group">
+        <label for="name">BirthDate</label>
+        <input type="text" class="form-control" placeholder="Enter Student's BirthDate"
+               asp-for="selectedStudent.BirthDate" />
+    </div>
+    <div class="form-group">
+        <label for="name">Gender</label>
+        <input type="text" class="form-control" placeholder="Enter Student's Gender"
+               asp-for="selectedStudent.Gender" />
+    </div>
+    <div class="form-group">
+        <label for="name">ClassroomId</label>
+        <input type="text" class="form-control" placeholder="Enter Student's ClassroomId"
+               asp-for="selectedStudent.ClassroomId" />
+    </div>
+    <button type="submit" class="btn btn-primary m-2">Update</button>
+    <a asp-action="Index" asp-route-id="@Model.selectedStudent.ClassroomId" class="btn btn-danger">Cancel</a>
+</form>
